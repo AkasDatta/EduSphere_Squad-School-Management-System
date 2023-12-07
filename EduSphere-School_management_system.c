@@ -20,6 +20,10 @@ void searchAndEnroll(struct Class classes[], int numClasses);
 void enrollInClass(struct Class *class);
 void checkout(struct Class classes[], int numClasses);
 void teacherMenu(struct Class classes[], int numClasses);
+void viewInventory(struct Class classes[], int numClasses);
+void addNewClass(struct Class classes[], int *numClasses);
+void deleteClass(struct Class classes[], int *numClasses);
+void updateClassQuantity(struct Class classes[], int numClasses);
 
 // Function to display the welcome page
 void welcomePage() {
@@ -181,42 +185,37 @@ void teacherMenu(struct Class classes[], int numClasses) {
 
     do {
         printf("\nTeacher Menu:\n");
-        printf("1. Add a new class\n");
-        printf("2. Modify class details\n");
-        printf("3. View all classes\n");
-        printf("4. Exit\n");
+        printf("1. View inventory\n");
+        printf("2. Add a new class\n");
+        printf("3. Delete a class\n");
+        printf("4. Update class quantity\n");
+        printf("5. Exit\n");
 
         printf("Enter your choice: ");
         scanf("%d", &option);
 
         switch (option) {
             case 1:
-                // Implement adding a new class functionality
-                // You can prompt the teacher to enter details for the new class
-                // and add it to the classes array
-                printf("Adding a new class functionality not implemented yet.\n");
+                // Implement view inventory functionality
+                viewInventory(classes, numClasses);
                 break;
 
             case 2:
-                // Implement modifying class details functionality
-                // You can prompt the teacher to enter the class index or name
-                // and then modify the details of that class
-                printf("Modifying class details functionality not implemented yet.\n");
+                // Implement adding a new class functionality
+                addNewClass(classes, &numClasses);
                 break;
 
             case 3:
-                // Implement viewing all classes functionality
-                // You can display the details of all classes in the system
-                for (int i = 0; i < numClasses; i++) {
-                    printf("%d. %s\n", i + 1, classes[i].name);
-                    printf("   Teacher: %s\n", classes[i].teacher);
-                    printf("   Genre: %s\n", classes[i].genre);
-                    printf("   Class Time: %s\n", classes[i].classTime);
-                    printf("   Student Quantity: %d\n", classes[i].studentQuantity);
-                }
+                // Implement deleting a class functionality
+                deleteClass(classes, &numClasses);
                 break;
 
             case 4:
+                // Implement updating class quantity functionality
+                updateClassQuantity(classes, numClasses);
+                break;
+
+            case 5:
                 printf("Exiting the Teacher Menu.\n");
                 break;
 
@@ -224,7 +223,43 @@ void teacherMenu(struct Class classes[], int numClasses) {
                 printf("Invalid choice. Please enter a valid option.\n");
         }
 
-    } while (option != 4);
+    } while (option != 5);
+}
+
+// Function to view inventory
+void viewInventory(struct Class classes[], int numClasses) {
+    printf("Inventory:\n");
+    for (int i = 0; i < numClasses; i++) {
+        printf("%d. %s\n", i + 1, classes[i].name);
+        printf("   Teacher: %s\n", classes[i].teacher);
+        printf("   Genre: %s\n", classes[i].genre);
+        printf("   Class Time: %s\n", classes[i].classTime);
+        printf("   Student Quantity: %d\n", classes[i].studentQuantity);
+    }
+}
+
+// Function to add a new class
+void addNewClass(struct Class classes[], int *numClasses) {
+    // Implement the logic to add a new class
+    // You can prompt the teacher to enter details for the new class
+    // and add it to the classes array
+    printf("Adding a new class functionality not implemented yet.\n");
+}
+
+// Function to delete a class
+void deleteClass(struct Class classes[], int *numClasses) {
+    // Implement the logic to delete a class
+    // You can prompt the teacher to enter the class index or name
+    // and then remove it from the classes array
+    printf("Deleting a class functionality not implemented yet.\n");
+}
+
+// Function to update class quantity
+void updateClassQuantity(struct Class classes[], int numClasses) {
+    // Implement the logic to update the quantity of a class
+    // You can prompt the teacher to enter the class index or name
+    // and then update the quantity
+    printf("Updating class quantity functionality not implemented yet.\n");
 }
 
 int main() {
