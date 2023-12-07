@@ -243,7 +243,33 @@ void addNewClass(struct Class classes[], int *numClasses) {
     // Implement the logic to add a new class
     // You can prompt the teacher to enter details for the new class
     // and add it to the classes array
-    printf("Adding a new class functionality not implemented yet.\n");
+    printf("Enter details for the new class:\n");
+
+    // Increment the number of classes
+    (*numClasses)++;
+
+    // Get details for the new class
+    printf("Name: ");
+    scanf("%s", classes[*numClasses - 1].name);
+
+    printf("Teacher: ");
+    scanf("%s", classes[*numClasses - 1].teacher);
+
+    printf("Genre: ");
+    scanf("%s", classes[*numClasses - 1].genre);
+
+    printf("Details: ");
+    scanf("%s", classes[*numClasses - 1].details);
+
+    printf("Class Time: ");
+    scanf("%s", classes[*numClasses - 1].classTime);
+
+    printf("Student Quantity: ");
+    scanf("%d", &classes[*numClasses - 1].studentQuantity);
+
+    classes[*numClasses - 1].enrolled = 0; // Initialize enrolled flag to 0
+
+    printf("New class added successfully!\n");
 }
 
 // Function to delete a class
@@ -251,7 +277,29 @@ void deleteClass(struct Class classes[], int *numClasses) {
     // Implement the logic to delete a class
     // You can prompt the teacher to enter the class index or name
     // and then remove it from the classes array
-    printf("Deleting a class functionality not implemented yet.\n");
+    int classIndex;
+    printf("Enter the ID of the class you want to delete: ");
+    scanf("%d", &classIndex);
+
+    if (classIndex >= 1 && classIndex <= *numClasses) {
+        // Shift the classes array to remove the specified class
+        for (int i = classIndex - 1; i < *numClasses - 1; i++) {
+            strcpy(classes[i].name, classes[i + 1].name);
+            strcpy(classes[i].teacher, classes[i + 1].teacher);
+            strcpy(classes[i].genre, classes[i + 1].genre);
+            strcpy(classes[i].details, classes[i + 1].details);
+            strcpy(classes[i].classTime, classes[i + 1].classTime);
+            classes[i].studentQuantity = classes[i + 1].studentQuantity;
+            classes[i].enrolled = classes[i + 1].enrolled;
+        }
+
+        // Decrement the number of classes
+        (*numClasses)--;
+
+        printf("Class deleted successfully!\n");
+    } else {
+        printf("Invalid class ID.\n");
+    }
 }
 
 // Function to update class quantity
@@ -259,7 +307,18 @@ void updateClassQuantity(struct Class classes[], int numClasses) {
     // Implement the logic to update the quantity of a class
     // You can prompt the teacher to enter the class index or name
     // and then update the quantity
-    printf("Updating class quantity functionality not implemented yet.\n");
+    int classIndex;
+    printf("Enter the ID of the class you want to update: ");
+    scanf("%d", &classIndex);
+
+    if (classIndex >= 1 && classIndex <= numClasses) {
+        printf("Enter the new quantity for the class: ");
+        scanf("%d", &classes[classIndex - 1].studentQuantity);
+
+        printf("Class quantity updated successfully!\n");
+    } else {
+        printf("Invalid class ID.\n");
+    }
 }
 
 int main() {
