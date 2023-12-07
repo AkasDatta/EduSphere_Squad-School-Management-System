@@ -7,6 +7,8 @@ struct Class {
     char teacher[50];
     char genre[50];
     char details[200];
+    char classTime[50];
+    int studentQuantity;
     int enrolled;  // Flag to indicate whether a student is enrolled
 };
 
@@ -48,6 +50,10 @@ void studentMenu(struct Class classes[], int numClasses) {
                 printf("List of all classes:\n");
                 for (int i = 0; i < numClasses; i++) {
                     printf("%d. %s\n", i + 1, classes[i].name);
+                    printf("   Teacher: %s\n", classes[i].teacher);
+                    printf("   Genre: %s\n", classes[i].genre);
+                    printf("   Class Time: %s\n", classes[i].classTime);
+                    printf("   Student Quantity: %d\n", classes[i].studentQuantity);
                 }
                 break;
 
@@ -106,11 +112,13 @@ void searchAndEnroll(struct Class classes[], int numClasses) {
                 printf("Do you want to enroll in this class? (y/n): ");
                 scanf(" %c", &enrollChoice);
 
-                if (enrollChoice == 'y' || enrollChoice == 'Y') {
+                // Enroll in multiple classes if desired
+                while (enrollChoice == 'y' || enrollChoice == 'Y') {
                     printf("Enrolled in the class!\n");
                     classes[i].enrolled = 1;  // Set the enrolled flag
-                } else {
-                    printf("Not enrolled in the class.\n");
+                    classes[i].studentQuantity++; // Increment student quantity
+                    printf("Do you want to enroll in another class? (y/n): ");
+                    scanf(" %c", &enrollChoice);
                 }
             }
 
@@ -126,9 +134,9 @@ void searchAndEnroll(struct Class classes[], int numClasses) {
 int main() {
     // Dummy data for classes
     struct Class classes[3] = {
-        {"Math", "Mr. Smith", "Mathematics", "Introduction to Mathematics", 0},
-        {"Science", "Ms. Johnson", "Science", "Basic Science Concepts", 0},
-        {"History", "Mr. Davis", "History", "World History Overview", 0}
+        {"Math", "Mr. Smith", "Mathematics", "Introduction to Mathematics", "Monday 9:00 AM", 20, 0},
+        {"Science", "Ms. Johnson", "Science", "Basic Science Concepts", "Wednesday 2:00 PM", 34, 0},
+        {"History", "Mr. Davis", "History", "World History Overview", "Friday 11:00 AM", 10, 0}
     };
 
     // Variables to store user choice and name
