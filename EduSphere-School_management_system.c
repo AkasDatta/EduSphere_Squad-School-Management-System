@@ -16,6 +16,8 @@ struct Class {
 void welcomePage();
 void studentMenu(struct Class classes[], int numClasses);
 void searchAndEnroll(struct Class classes[], int numClasses);
+void enrollInClass(struct Class *class);
+void checkout(struct Class classes[], int numClasses);
 
 // Function to display the welcome page
 void welcomePage() {
@@ -23,6 +25,28 @@ void welcomePage() {
     printf("Please identify yourself:\n");
     printf("1. Teacher\n");
     printf("2. Student\n");
+}
+
+// Function to enroll in a class
+void enrollInClass(struct Class *class) {
+    // Check if the class is in stock
+    if (class->studentQuantity > 0) {
+        // Ask if the student wants to enroll
+        char enrollChoice;
+        printf("Do you want to enroll in this class? (y/n): ");
+        scanf(" %c", &enrollChoice);
+
+        // Enroll in multiple classes if desired
+        while (enrollChoice == 'y' || enrollChoice == 'Y') {
+            printf("Enrolled in the class!\n");
+            class->enrolled = 1;  // Set the enrolled flag
+            class->studentQuantity--; // Decrease available student quantity
+            printf("Do you want to enroll in another class? (y/n): ");
+            scanf(" %c", &enrollChoice);
+        }
+    } else {
+        printf("Sorry, this class is out of stock.\n");
+    }
 }
 
 // Function to display the student menu
@@ -34,7 +58,8 @@ void studentMenu(struct Class classes[], int numClasses) {
         printf("1. Search for a class and enroll\n");
         printf("2. List all classes\n");
         printf("3. View class name and details\n");
-        printf("4. Exit\n");
+        printf("4. Checkout\n");
+        printf("5. Exit\n");
 
         printf("Enter your choice: ");
         scanf("%d", &option);
@@ -73,6 +98,11 @@ void studentMenu(struct Class classes[], int numClasses) {
                 break;
 
             case 4:
+                // Implement checkout functionality
+                checkout(classes, numClasses);
+                break;
+
+            case 5:
                 printf("Exiting the Student Menu.\n");
                 break;
 
@@ -80,7 +110,7 @@ void studentMenu(struct Class classes[], int numClasses) {
                 printf("Invalid choice. Please enter a valid option.\n");
         }
 
-    } while (option != 4);
+    } while (option != 5);
 }
 
 // Function to search for a class and enroll
@@ -107,19 +137,7 @@ void searchAndEnroll(struct Class classes[], int numClasses) {
             if (classes[i].enrolled) {
                 printf("You are already enrolled in this class.\n");
             } else {
-                // Ask if the student wants to enroll
-                char enrollChoice;
-                printf("Do you want to enroll in this class? (y/n): ");
-                scanf(" %c", &enrollChoice);
-
-                // Enroll in multiple classes if desired
-                while (enrollChoice == 'y' || enrollChoice == 'Y') {
-                    printf("Enrolled in the class!\n");
-                    classes[i].enrolled = 1;  // Set the enrolled flag
-                    classes[i].studentQuantity++; // Increment student quantity
-                    printf("Do you want to enroll in another class? (y/n): ");
-                    scanf(" %c", &enrollChoice);
-                }
+                enrollInClass(&classes[i]);  // Enroll in the class
             }
 
             matchFound = 1;
@@ -129,6 +147,14 @@ void searchAndEnroll(struct Class classes[], int numClasses) {
     if (!matchFound) {
         printf("No matching classes found.\n");
     }
+}
+
+// Function to process checkout
+void checkout(struct Class classes[], int numClasses) {
+    printf("Checkout process initiated...\n");
+    // Add any additional checkout logic here
+    // This could include generating a receipt, updating student records, etc.
+    printf("Checkout completed. Thank you for using the School Management System!\n");
 }
 
 int main() {
