@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
 // Structure to represent a class
 struct Class {
@@ -18,6 +19,7 @@ void studentMenu(struct Class classes[], int numClasses);
 void searchAndEnroll(struct Class classes[], int numClasses);
 void enrollInClass(struct Class *class);
 void checkout(struct Class classes[], int numClasses);
+void teacherMenu(struct Class classes[], int numClasses);
 
 // Function to display the welcome page
 void welcomePage() {
@@ -157,6 +159,74 @@ void checkout(struct Class classes[], int numClasses) {
     printf("Checkout completed. Thank you for using the School Management System!\n");
 }
 
+// Function to validate the teacher password
+bool validateTeacherPassword() {
+    char password[50];
+    printf("Enter the teacher password: ");
+    scanf("%s", password);
+
+    // Compare the entered password with the correct password
+    return strcmp(password, "111111") == 0; // Change "your_teacher_password" to the actual password
+}
+
+// Function to display the teacher menu
+void teacherMenu(struct Class classes[], int numClasses) {
+    // Validate the teacher password
+    if (!validateTeacherPassword()) {
+        printf("Incorrect password. Access denied.\n");
+        return;
+    }
+
+    int option;
+
+    do {
+        printf("\nTeacher Menu:\n");
+        printf("1. Add a new class\n");
+        printf("2. Modify class details\n");
+        printf("3. View all classes\n");
+        printf("4. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &option);
+
+        switch (option) {
+            case 1:
+                // Implement adding a new class functionality
+                // You can prompt the teacher to enter details for the new class
+                // and add it to the classes array
+                printf("Adding a new class functionality not implemented yet.\n");
+                break;
+
+            case 2:
+                // Implement modifying class details functionality
+                // You can prompt the teacher to enter the class index or name
+                // and then modify the details of that class
+                printf("Modifying class details functionality not implemented yet.\n");
+                break;
+
+            case 3:
+                // Implement viewing all classes functionality
+                // You can display the details of all classes in the system
+                for (int i = 0; i < numClasses; i++) {
+                    printf("%d. %s\n", i + 1, classes[i].name);
+                    printf("   Teacher: %s\n", classes[i].teacher);
+                    printf("   Genre: %s\n", classes[i].genre);
+                    printf("   Class Time: %s\n", classes[i].classTime);
+                    printf("   Student Quantity: %d\n", classes[i].studentQuantity);
+                }
+                break;
+
+            case 4:
+                printf("Exiting the Teacher Menu.\n");
+                break;
+
+            default:
+                printf("Invalid choice. Please enter a valid option.\n");
+        }
+
+    } while (option != 4);
+}
+
 int main() {
     // Dummy data for classes
     struct Class classes[3] = {
@@ -183,7 +253,8 @@ int main() {
     // Display a personalized message based on the user's choice
     if (choice == 1) {
         printf("Hello, %s! You are a teacher.\n", name);
-        // Add teacher-related functionality here
+        // Call the teacher menu
+        teacherMenu(classes, 3);  // Assuming there are 3 classes in the example
     } else if (choice == 2) {
         printf("Hello, %s! You are a student.\n", name);
         // Call the student menu
